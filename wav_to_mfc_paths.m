@@ -1,4 +1,4 @@
-% === CONFIGURACIÓN INICIAL ===
+% === INITIAL CONFIGURATION ===
 rootDir = 'C:\Users\root\Desktop\htk-3.2.1';  % Carpeta donde están tus .wav reales
 phnDir = 'C:\Users\root\Desktop\';            % Carpeta donde está phn_invalid_files2.txt
 
