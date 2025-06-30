@@ -20,7 +20,7 @@ for %%X in (%DYSARTHRIA%) do (
             mkdir "!OUTPUT_DIR!"
         )
         echo Running HCompV for train_%%X_%%Y.scp
-        HCompV -f 0.01 -m -S train_develop_%%X_%%Y.scp -M "!OUTPUT_DIR!" proto.txt
+        HCompV -f 0.01 -m -S train_%%X_%%Y.scp -M "!OUTPUT_DIR!" proto.txt
     )
 )
 
