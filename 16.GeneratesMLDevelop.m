@@ -32,8 +32,8 @@ function generar_archivos_mlf()
 
                % Crear nombres de archivo
 
-                 %nombreSCP = sprintf('develop_%s_%s.scp', sujeto_disartria, sujeto_no_disartria);
-                 %nombreMLF = sprintf('develop_%s_%s.mlf', sujeto_disartria, sujeto_no_disartria);
+                 nombreSCP = sprintf('develop_%s_%s.scp', sujeto_disartria, sujeto_no_disartria);
+                 nombreMLF = sprintf('develop_%s_%s.mlf', sujeto_disartria, sujeto_no_disartria);
 
                 rutaSCP = fullfile(rutaBase, nombreSCP);
                 rutaMLF = fullfile(rutaBase, nombreMLF);
