@@ -75,7 +75,7 @@ end
 
 % === SAVE RESULT ===
 if ~isempty(invalidFiles)
-    outputPath = fullfile('C:\Users\root\Desktop', 'phn_invalid_files2.txt');
+    outputPath = fullfile('C:\Users\root\Desktop', 'phn_invalid_files.txt');
     fid = fopen(outputPath, 'w');
     for i = 1:length(invalidFiles)
         fprintf(fid, '%s\n', invalidFiles{i});
