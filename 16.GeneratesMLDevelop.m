@@ -22,26 +22,18 @@ function generar_archivos_mlf()
             end
         end
         fclose(fid_clases);
-        disp('Clases le韉as correctamente.');
+        disp('Clases le铆das correctamente.');
 
-        % Generar archivos para cada combinaci髇 de disartria y no_disartria
+        % Generar archivos para cada combinaci贸n de disartria y no_disartria
         for i = 1:length(disartria)
             for j = 1:length(no_disartria)
                 sujeto_disartria = disartria{i};
                 sujeto_no_disartria = no_disartria{j};
 
                % Crear nombres de archivo
-                  % nombreSCP = sprintf('train_%s_%s.scp', sujeto_disartria, sujeto_no_disartria);
-                  % nombreMLF = sprintf('train_%s_%s.mlf', sujeto_disartria, sujeto_no_disartria);
 
                  %nombreSCP = sprintf('develop_%s_%s.scp', sujeto_disartria, sujeto_no_disartria);
                  %nombreMLF = sprintf('develop_%s_%s.mlf', sujeto_disartria, sujeto_no_disartria);
-
-               % nombreSCP = sprintf('test_%s_%s.scp', sujeto_disartria, sujeto_no_disartria);
-               %  nombreMLF = sprintf('test_%s_%s.mlf', sujeto_disartria, sujeto_no_disartria);
-
-                   nombreSCP = sprintf('train_develop_%s_%s.scp', sujeto_disartria, sujeto_no_disartria);
-                  nombreMLF = sprintf('train_develop_%s_%s.mlf', sujeto_disartria, sujeto_no_disartria);
 
                 rutaSCP = fullfile(rutaBase, nombreSCP);
                 rutaMLF = fullfile(rutaBase, nombreMLF);
@@ -49,7 +41,7 @@ function generar_archivos_mlf()
                 % Comprobar si el archivo .scp existe
                 if ~isfile(rutaSCP)
                     fprintf('Advertencia: El archivo .scp no existe: %s\n', rutaSCP);
-                    continue; % Saltar esta combinaci髇 si no hay archivo .scp
+                    continue; % Saltar esta combinaci贸n si no hay archivo .scp
                 end
 
                 % Abrir archivo de salida .mlf
@@ -66,14 +58,14 @@ function generar_archivos_mlf()
                     error('No se pudo abrir el archivo .scp: %s', rutaSCP);
                 end
 
-                % Procesar l韓eas del archivo .scp
+                % Procesar l铆neas del archivo .scp
                 while ~feof(fid_scp)
                     linea = strtrim(fgetl(fid_scp));
                     if ischar(linea) && ~isempty(linea)
                         % Determinar la clase del archivo actual
                         clase = determinar_clase(linea, disartria, no_disartria);
 
-                        % Cambiar la extensi髇 a .lab y escribir en el archivo .mlf
+                        % Cambiar la extensi贸n a .lab y escribir en el archivo .mlf
                         rutaArchivoLab = strrep(linea, '.mfc', '.lab');
                         fprintf(fid_mlf, '"%s"\n%s\n.\n', rutaArchivoLab, clase);
                     end
@@ -81,7 +73,7 @@ function generar_archivos_mlf()
 
                 fclose(fid_scp);
                 fclose(fid_mlf);
-                fprintf('Archivo %s generado con 閤ito.\n', nombreMLF);
+                fprintf('Archivo %s generado con 茅xito.\n', nombreMLF);
             end
         end
 
@@ -97,13 +89,13 @@ function clase = determinar_clase(linea, disartria, no_disartria)
     for i = 1:length(disartria)
         if contains(linea, disartria{i})
             clase = 'Dysarthria';
-            return; % Salir de la funci髇 si se encuentra una coincidencia
+            return; % Salir de la funci贸n si se encuentra una coincidencia
         end
     end
     for i = 1:length(no_disartria)
         if contains(linea, no_disartria{i})
             clase = 'No_Dysarthria';
-            return; % Salir de la funci髇 si se encuentra una coincidencia
+            return; % Salir de la funci贸n si se encuentra una coincidencia
         end
     end
 end
