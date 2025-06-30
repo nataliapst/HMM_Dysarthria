@@ -1,0 +1,38 @@
+# Configuration for feature extraction with HCopy
+
+# Type of output features (MFCC with energy, first, and second derivatives)
+TARGETKIND = MFCC_0_D_A
+
+# Format of the input files (can be WAV, HTK, etc.)
+SOURCEFORMAT = WAV
+SOURCEKIND = WAVEFORM
+
+# Sampling rate of the output features (usually 10 ms, i.e., 100000 ns)
+TARGETRATE = 100000.0
+
+# Compress the output
+SAVECOMPRESSED = T
+
+# Add CRC (checksum) to the output files
+SAVEWITHCRC = T
+
+# Analysis window size in seconds (usually 25 ms)
+WINDOWSIZE = 250000.0
+
+# Apply Hamming window to reduce edge discontinuities
+USEHAMMING = T
+
+# Pre-emphasis coefficient (typically 0.97)
+PREEMCOEF = 0.97
+
+# Number of channels in the Mel filter bank
+NUMCHANS = 26
+
+# Liftering in the cepstral domain (typical value: 22)
+CEPLIFTER = 22
+
+# Number of cepstral coefficients to compute (usually 12)
+NUMCEPS = 12
+
+# Energy normalization
+ENORMALISE = F
