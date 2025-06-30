@@ -75,7 +75,7 @@ output_files = {
 for i = 1:size(output_files, 1)
     % Full path of the output file
     % TRAINING ->
-    % output_file_name = fullfile(output_folder, strcat('train_', output_files{i, 1}, '.scp'));
+    % output_file_name = fullfile(output_folder, strcat('develop_', output_files{i, 1}, '.scp'));
 
     % Subjects to search for in the paths
     subjects_to_search = output_files{i, 2};
