@@ -1,58 +1,58 @@
-% Definir los sujetos con disartria y sin disartria
-disartria = {'F01', 'F03','F04', 'M01', 'M02', 'M03', 'M04','M05'}; %'F03',
-no_disartria = {'FC01','FC02', 'FC03', 'MC01', 'MC02', 'MC03', 'MC04'};
+% Define dysarthric and non-dysarthric subjects
+dysarthric = {'F01', 'F03','F04', 'M01', 'M02', 'M03', 'M04','M05'};
+non_dysarthric = {'FC01','FC02', 'FC03', 'MC01', 'MC02', 'MC03', 'MC04'};
 
-% Ruta base
+% Base path
 base_path = 'C:\Users\root\Desktop\htk-3.2.1\';
 
-% Iterar sobre todas las combinaciones de sujetos con y sin disartria
-for i = 1:length(disartria)
-    for j = 1:length(no_disartria)
+% Iterate over all combinations of dysarthric and non-dysarthric subjects
+for i = 1:length(dysarthric)
+    for j = 1:length(non_dysarthric)
         
-        % Nombres de los sujetos actuales
-        disartria_subject = disartria{i};
-        no_disartria_subject = no_disartria{j};
+        % Current subject names
+        dys_subject = dysarthric{i};
+        nondys_subject = non_dysarthric{j};
         
-        % Buscar todos los archivos recout con el patrón correspondiente
-        file_pattern = fullfile(base_path, ['recout_' disartria_subject '_' no_disartria_subject '_*.mlf']);
+        % Search for all recout files matching the pattern
+        file_pattern = fullfile(base_path, ['recout_' dys_subject '_' nondys_subject '_*.mlf']);
         recout_files = dir(file_pattern);
         
-        % Procesar cada archivo encontrado
+        % Process each found file
         for f = 1:length(recout_files)
-            % Obtener nombre completo del archivo actual
+            % Get full name of the current file
             recout_file = fullfile(recout_files(f).folder, recout_files(f).name);
             corrected_recout_file = strrep(recout_file, '.mlf', '_corrected.mlf');
             
-            % Nombres de archivos development
-            development_file = fullfile(base_path, ['develop_' disartria_subject '_' no_disartria_subject '.mlf']);
+            % Development file name
+            development_file = fullfile(base_path, ['develop_' dys_subject '_' nondys_subject '.mlf']);
             
-            % Leer el archivo development
+            % Read development file
             dev_fid = fopen(development_file, 'r');
             if dev_fid == -1
-                fprintf('No se pudo abrir el archivo %s\n', development_file);
+                fprintf('Could not open the file %s\n', development_file);
                 continue;
             end
             dev_content = textscan(dev_fid, '%s', 'Delimiter', '\n');
             fclose(dev_fid);
             
-            % Extraer las rutas de .lab en development y cambiar extensión a .rec
+            % Extract .lab paths and change extension to .rec
             dev_lines = dev_content{1};
             rec_paths = strrep(dev_lines(contains(dev_lines, '.lab')), '.lab', '.rec');
             
-            % Leer el archivo recout
+            % Read recout file
             recout_fid = fopen(recout_file, 'r');
             if recout_fid == -1
-                fprintf('No se pudo abrir el archivo %s\n', recout_file);
+                fprintf('Could not open the file %s\n', recout_file);
                 continue;
             end
             recout_content = textscan(recout_fid, '%s', 'Delimiter', '\n');
             fclose(recout_fid);
             
-            % Escribir el archivo recout corregido
+            % Write the corrected recout file
             corrected_fid = fopen(corrected_recout_file, 'w');
-            fprintf(corrected_fid, '%s\n', recout_content{1}{1}); % Encabezado #!MLF!#
+            fprintf(corrected_fid, '%s\n', recout_content{1}{1}); % Header #!MLF!#
             
-            % Sustituir las rutas en recout con las de development modificadas
+            % Replace paths in recout with modified development paths
             rec_index = 1;
             for k = 2:length(recout_content{1})
                 line = recout_content{1}{k};
@@ -65,7 +65,7 @@ for i = 1:length(disartria)
             end
             fclose(corrected_fid);
             
-            fprintf('Archivo corregido guardado: %s\n', corrected_recout_file);
+            fprintf('Corrected file saved: %s\n', corrected_recout_file);
         end
     end
 end
