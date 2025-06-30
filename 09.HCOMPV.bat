@@ -15,7 +15,7 @@ set BASE_DIR=C:\Users\root\Desktop\htk-3.2.1
 for %%X in (%DYSARTHRIA%) do (
     for %%Y in (%NO_DYSARTHRIA%) do (
         rem Create output folder train/HMM0 if it doesn't exist
-        set OUTPUT_DIR=!BASE_DIR!\train_develop_%%X_%%Y\hmm0
+        set OUTPUT_DIR=!BASE_DIR!\train_%%X_%%Y\hmm0
         if not exist "!OUTPUT_DIR!" (
             mkdir "!OUTPUT_DIR!"
         )
