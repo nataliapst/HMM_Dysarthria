@@ -1,5 +1,5 @@
 % Ruta del archivo wav_to_mfc_paths.txt
-inputFile = 'C:\Users\root\Desktop\htk-3.2.1\wav_to_mfc_paths_CORRECT.txt';
+inputFile = 'C:\Users\root\Desktop\htk-3.2.1\wav_to_mfc_paths.txt';
 
 % Ruta del archivo .scp de salida
 outputScpFile = 'C:\Users\root\Desktop\htk-3.2.1\mfc_paths.scp';
@@ -10,7 +10,7 @@ if fileID == -1
     error('No se pudo abrir el archivo %s', inputFile);
 end
 
-% Leer líneas del archivo
+% Leer lÃ­neas del archivo
 data = textscan(fileID, '%s %s', 'Delimiter', '\t');
 fclose(fileID);
 
@@ -28,5 +28,5 @@ for i = 1:length(mfcPaths)
 end
 fclose(fileID);
 
-% Confirmación
+% ConfirmaciÃ³n
 fprintf('Archivo .scp generado en: %s\n', outputScpFile);
