@@ -13,7 +13,6 @@ for i = 1:length(X_values)
         
         % Define specific paths for this combination
         train_dir = fullfile(base_dir, ['train_', X, '_', Y, '\hmm0']);
-        % train_dir = fullfile(base_dir, ['train_develop_', X, '_', Y, '\hmm0']);
         proto_file = fullfile(train_dir, 'proto');
         vFloor_file = fullfile(train_dir, 'vFloors');
         hmmdefs_file = fullfile(train_dir, 'hmmdefs');
