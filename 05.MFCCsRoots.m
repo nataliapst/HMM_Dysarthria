@@ -1,26 +1,26 @@
-% Ruta del archivo wav_to_mfc_paths.txt
+% Path to the wav_to_mfc_paths.txt file
 inputFile = 'C:\Users\root\Desktop\htk-3.2.1\wav_to_mfc_paths.txt';
 
-% Ruta del archivo .scp de salida
+% Path to the output .scp file
 outputScpFile = 'C:\Users\root\Desktop\htk-3.2.1\mfc_paths.scp';
 
-% Leer el archivo wav_to_mfc_paths.txt
+% Read the wav_to_mfc_paths.txt file
 fileID = fopen(inputFile, 'r');
 if fileID == -1
-    error('No se pudo abrir el archivo %s', inputFile);
+    error('Could not open the file %s', inputFile);
 end
 
-% Leer líneas del archivo
+% Read lines from the file
 data = textscan(fileID, '%s %s', 'Delimiter', '\t');
 fclose(fileID);
 
-% Extraer la segunda columna (rutas de .mfc)
+% Extract the second column (paths to .mfc files)
 mfcPaths = data{2};
 
-% Guardar las rutas en el archivo .scp
+% Save the paths in the .scp file
 fileID = fopen(outputScpFile, 'w');
 if fileID == -1
-    error('No se pudo crear el archivo %s', outputScpFile);
+    error('Could not create the file %s', outputScpFile);
 end
 
 for i = 1:length(mfcPaths)
@@ -28,5 +28,5 @@ for i = 1:length(mfcPaths)
 end
 fclose(fileID);
 
-% Confirmación
-fprintf('Archivo .scp generado en: %s\n', outputScpFile);
+% Confirmation message
+fprintf('.scp file generated at: %s\n', outputScpFile);
