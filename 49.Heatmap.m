@@ -1,20 +1,20 @@
 function HeatMap_Accuracy
-    % Ruta del archivo Excel
-    filename = 'C:\Users\root\Desktop\metrics_results_with_means.xlsx'; % Cambia a tu archivo
+    % Path to the Excel file
+    filename = 'C:\Users\root\Desktop\metrics_results_with_means.xlsx'; % Change to your file
     T = readtable(filename, 'VariableNamingRule', 'preserve');
 
-    % Extraer combinaciones y accuracy
-    combinations = string(T.Combination); % asegurar tipo string
-    accuracy = T.('Accuracy'); % columna Accuracy del archivo
+    % Extract combinations and accuracy
+    combinations = string(T.Combination); % ensure string type
+    accuracy = T.('Accuracy'); % Accuracy column from the file
 
-    % Listas ordenadas de hablantes disartricos y controles
-    dysList = ["F01", "F03", "F04", "M01", "M02", "M03", "M04", "M05"];
+    % Ordered lists of dysarthric speakers and controls
+    dysList = ["F03", "F04", "M01", "M02", "M04", "M05"];
     ctrlList = ["FC01", "FC02", "FC03", "MC01", "MC02", "MC03", "MC04"];
 
-    % Inicializar matriz vacía (controles filas, disartricos columnas)
+    % Initialize empty matrix (controls rows, dysarthric columns)
     A = NaN(numel(ctrlList), numel(dysList));
 
-    % Llenar matriz A con datos de accuracy
+    % Fill matrix A with accuracy data
     for i = 1:length(combinations)
         splitStr = split(combinations(i), "_");
         if numel(splitStr) == 2
@@ -27,15 +27,4 @@ function HeatMap_Accuracy
             end
         end
     end
-
-    % Dibujar heatmap de Accuracy
-    figure;
-    h1 = heatmap(dysList, ctrlList, A, ...
-        'Colormap', cool, ...
-        'MissingDataColor', [0.9 0.9 0.9], ...
-        'ColorLimits', [min(accuracy) max(accuracy)], ...
-        'CellLabelFormat','%.3f');
-    h1.Title = 'Test Set Accuracy Heatmap';
-    h1.XLabel = 'Dysarthric Speaker';
-    h1.YLabel = 'Control Speaker';
 end
