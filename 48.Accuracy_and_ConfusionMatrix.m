@@ -25,7 +25,7 @@ data.Accuracy = accuracy;
 % Initialize final table with original rows
 finalTable = data;
 
-% Every 7 rows, calculate mean accuracy and add summary row
+% Every 7 rows calculate mean accuracy and add summary row
 groupSize = 7;
 numGroups = floor(height(data) / groupSize);
 
@@ -52,34 +52,28 @@ for g = 1:numGroups
     meanRow.TN = NaN;
     meanRow.Accuracy = meanAccuracy;
 
-    % Append summary row to the final table
+    % Add summary row to final table
     finalTable = [finalTable(1:idxEnd,:); meanRow; finalTable(idxEnd+1:end,:)];
 end
 
-% Save new Excel file
+% Save new Excel file with means
 writetable(finalTable, 'C:\Users\root\Desktop\metrics_results_with_means.xlsx');
 
 disp('File saved with added mean rows.');
 
-% Given global totals
-TP_total = 26865;
-FN_total = 15898;
-FP_total = 24209;
-TN_total = 67191;
+% Given global totals (the ones you provided)
+TP_total = 19688;
+FN_total = 12960;
+FP_total = 16592;
+TN_total = 47420;
 
 % Calculate global metrics
-precision_global = TP_total / (TP_total + FP_total);
-recall_global = TP_total / (TP_total + FN_total);
 accuracy_global = (TP_total + TN_total) / (TP_total + TN_total + FP_total + FN_total);
-f1_global = 2 * (precision_global * recall_global) / (precision_global + recall_global);
 
 % Display global metrics
 fprintf('--- GLOBAL METRICS ---\n');
 fprintf('Total TP: %d, FP: %d, FN: %d, TN: %d\n', TP_total, FP_total, FN_total, TN_total);
-fprintf('Precision: %.4f\n', precision_global);
-fprintf('Recall: %.4f\n', recall_global);
 fprintf('Accuracy: %.4f\n', accuracy_global);
-fprintf('F1-score: %.4f\n', f1_global);
 
 % Correct global confusion matrix: rows=actual, columns=predicted
 confMatrixGlobal = [TP_total, FN_total; FP_total, TN_total];
@@ -103,7 +97,7 @@ yticklabels(classNames);
 
 % Add numbers and percentages inside each cell
 textStrings = strings(size(confMatrixGlobal));
-labelNames = ["TP", "FN"; "FP", "TN"]; % labels according to matrix layout
+labelNames = ["TP", "FN"; "FP", "TN"]; % labels according to new matrix
 for i = 1:size(confMatrixGlobal,1)
     for j = 1:size(confMatrixGlobal,2)
         val = confMatrixGlobal(i,j);
